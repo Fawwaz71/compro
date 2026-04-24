@@ -1,147 +1,111 @@
 :root {
-    --bg-dark: #1a1512;
-    --accent-gold: #c5a059;
-    --text-muted: #a8a8a8;
-    --glass: rgba(255, 255, 255, 0.05);
+    --gold: #c5a059;
+    --dark: #0f0d0c;
+    --cream: #f4ece1;
+    --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    background-color: var(--bg-dark);
-    color: #fff;
+    background-color: var(--dark);
+    color: var(--cream);
     font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-h1, h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-}
-
-/* Glassmorphism Navbar */
+/* --- NAVIGATION --- */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 1.5rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(26, 21, 18, 0.8);
-    backdrop-filter: blur(10px);
+    padding: 20px 5%;
+    position: fixed;
+    width: 100%;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: var(--transition);
 }
 
-.logo { font-size: 1.4rem; letter-spacing: 2px; }
-.logo span { color: var(--accent-gold); }
+.navbar.scrolled {
+    background: rgba(15, 13, 12, 0.98);
+    padding: 15px 5%;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+}
 
-/* Hero Section with Parallax Feel */
+.logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 2px; }
+.logo span { color: var(--gold); }
+
+/* PC Menu (Hidden on Phone) */
+.nav-desktop { display: none; list-style: none; gap: 30px; align-items: center; }
+.nav-desktop a { text-decoration: none; color: var(--cream); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.nav-btn { border: 1px solid var(--gold); padding: 8px 20px; border-radius: 2px; transition: 0.3s; }
+.nav-btn:hover { background: var(--gold); color: var(--dark) !important; }
+
+/* Burger Icon */
+.burger { cursor: pointer; display: flex; flex-direction: column; gap: 8px; }
+.burger span { width: 25px; height: 1px; background: var(--gold); transition: 0.3s; }
+
+/* Mobile Menu Slide-out */
+.mobile-menu {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 80%; height: 100%;
+    background: var(--dark);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+    transition: var(--transition);
+}
+
+.mobile-menu.active { right: 0; box-shadow: -10px 0 50px rgba(0,0,0,0.5); }
+.mobile-menu a { font-size: 2rem; color: var(--cream); text-decoration: none; margin: 15px 0; font-family: 'Cormorant Garamond', serif; }
+
+/* --- HERO --- */
 .hero {
     height: 100vh;
     display: flex;
     align-items: center;
     padding: 0 10%;
-    background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=80') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1920&q=80') center/cover;
     position: relative;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.9), transparent);
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; margin: 20px 0; }
+.tagline { color: var(--gold); letter-spacing: 5px; font-size: 0.8rem; font-weight: 700; }
+.subtext { max-width: 450px; font-weight: 300; margin-bottom: 30px; color: #ccc; }
+
+.btn { text-decoration: none; padding: 15px 35px; display: inline-block; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-right: 15px; border-radius: 2px; }
+.primary { background: var(--gold); color: var(--dark); }
+.secondary { border: 1px solid var(--cream); color: var(--cream); }
+
+/* --- SECTIONS --- */
+.section { padding: 80px 10%; }
+.story-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+.image-box img { width: 100%; border-radius: 4px; display: block; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: rgba(197, 160, 89, 0.1); margin-bottom: -20px; display: block; }
+h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 20px; }
+
+/* --- FOOTER & FORM --- */
+.footer { background: #080707; padding: 100px 10%; text-align: center; }
+.adaptive-form { display: grid; gap: 15px; max-width: 600px; margin: 40px auto; }
+input { padding: 15px; background: #151312; border: 1px solid #222; color: white; }
+.copyright { margin-top: 50px; font-size: 0.7rem; color: #555; }
+
+/* --- ADAPTIVE PC STYLES --- */
+@media (min-width: 1024px) {
+    .nav-desktop { display: flex; }
+    .burger { display: none; }
+    .story-grid { grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+    .desktop-reverse .text-box { order: 2; }
+    .desktop-reverse .image-box { order: 1; }
+    .adaptive-form { grid-template-columns: 1fr 1fr 0.5fr; max-width: 900px; }
 }
 
-.hero-content {
-    position: relative;
-    max-width: 700px;
-    z-index: 2;
-}
-
-.hero-content h1 { font-size: clamp(3rem, 8vw, 5rem); line-height: 1.1; margin: 1rem 0; }
-.pre-title { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; }
-
-/* Heritage Grid */
-.story { padding: 8rem 10%; }
-.story-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.story-image img {
-    width: 100%;
-    border-radius: 20px;
-    filter: sepia(20%) contrast(1.1);
-}
-
-.stats {
-    display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.stats strong { display: block; font-size: 2rem; color: var(--accent-gold); }
-
-/* Timeline */
-.process { padding: 5rem 10%; background: #1f1a17; }
-.timeline {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4rem;
-}
-
-.timeline-item { flex: 1; padding: 0 1rem; position: relative; }
-.dot { width: 12px; height: 12px; background: var(--accent-gold); border-radius: 50%; margin-bottom: 1rem; }
-
-/* Glass Cards */
-.catalog { padding: 8rem 10%; display: flex; gap: 2rem; }
-.glass-card {
-    background: var(--glass);
-    padding: 3rem;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.4s;
-    flex: 1;
-}
-
-.glass-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-10px); }
-.tag { color: var(--accent-gold); font-size: 0.7rem; text-transform: uppercase; }
-
-/* Animations */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Form Styling */
-.complex-form {
-    display: grid;
-    gap: 1rem;
-    max-width: 600px;
-    margin: 2rem auto;
-}
-
-.form-row { display: flex; gap: 1rem; }
-input, select {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 1rem;
-    color: white;
-    width: 100%;
-}
-
-.btn-gold {
-    background: var(--accent-gold);
-    color: #000;
-    border: none;
-    padding: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-}
+/* --- REVEAL ANIMATION --- */
+.reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
