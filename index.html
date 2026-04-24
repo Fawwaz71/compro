@@ -3,100 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ancestral Beans | Global Coffee Sovereignty</title>
+    <title>Ancestral Beans | Premium Coffee Export</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="navbar">
+    <nav class="navbar" id="mainNav">
         <div class="logo">ANCESTRAL<span>BEANS</span></div>
-        <div class="nav-cta">
-            <a href="#contact" class="btn-small">Partner With Us</a>
+        
+        <ul class="nav-desktop">
+            <li><a href="#story">Our Legacy</a></li>
+            <li><a href="#process">The Craft</a></li>
+            <li><a href="#contact" class="nav-btn">Export Inquiry</a></li>
+        </ul>
+
+        <div class="burger" id="mobileToggle">
+            <span></span>
+            <span></span>
         </div>
     </nav>
 
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#story">Our Legacy</a>
+        <a href="#process">The Craft</a>
+        <a href="#contact">Export Inquiry</a>
+    </div>
+
     <header class="hero">
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="pre-title">Established 1924</span>
-            <h1>A Century of Soil, <br> A World of Flavor.</h1>
-            <p>We don't just export beans; we export the heritage of the highlands and the sweat of five generations of master growers.</p>
-            <div class="scroll-indicator"></div>
+        <div class="hero-content reveal">
+            <p class="tagline">SINCE 1924</p>
+            <h1>The Odyssey of the <br>Perfect Bean.</h1>
+            <p class="subtext">Exporting the rich volcanic heritage of our highlands to the world's most prestigious roasteries.</p>
+            <div class="hero-btns">
+                <a href="#story" class="btn primary">Our Story</a>
+                <a href="#contact" class="btn secondary">Get a Quote</a>
+            </div>
         </div>
     </header>
 
-    <section class="story reveal">
-        <div class="container">
-            <div class="story-grid">
-                <div class="story-text">
-                    <h2>The Legacy in the Soil</h2>
-                    <p>Our story begins at 1,800 meters above sea level. It’s a story of volcanic ash, morning mists, and a commitment to the earth that predates the modern industrial machine. We believe the best coffee is grown with patience, not chemicals.</p>
-                    <div class="stats">
-                        <div><strong>500+</strong><span>Partner Farms</span></div>
-                        <div><strong>42</strong><span>Countries Served</span></div>
-                    </div>
-                </div>
-                <div class="story-image">
-                    <img src="https://images.unsplash.com/photo-1524350300060-d39f66391132?auto=format&fit=crop&w=800&q=80" alt="Coffee Farmer">
-                </div>
-            </div>
+    <section id="story" class="section story-grid">
+        <div class="image-box reveal">
+            <img src="https://images.unsplash.com/photo-1524350300060-d39f66391132?auto=format&fit=crop&w=800&q=80" alt="Coffee farm">
+        </div>
+        <div class="text-box reveal">
+            <span class="step-num">01</span>
+            <h2>Grown in the Clouds</h2>
+            <p>Our micro-lots sit at 1,800 meters above sea level. Here, the thin air and volcanic soil produce a bean with unmatched acidity and complexity. We don't just sell coffee; we manage the entire soul of the supply chain.</p>
         </div>
     </section>
 
-    <section class="process reveal">
-        <h2 class="center-title">The Journey to the Port</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="dot"></div>
-                <h3>Selective Harvesting</h3>
-                <p>Only the "blood-red" cherries are hand-picked at peak sugar content.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="dot"></div>
-                <h3>Eco-Washing</h3>
-                <p>Utilizing closed-loop water systems to protect our local mountain streams.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="dot"></div>
-                <h3>Global Logistics</h3>
-                <p>Precision-controlled moisture levels during shipping to ensure origin freshness.</p>
-            </div>
+    <section id="process" class="section story-grid desktop-reverse">
+        <div class="text-box reveal">
+            <span class="step-num">02</span>
+            <h2>The Craft of Export</h2>
+            <p>Every bag is vacuum-sealed and moisture-monitored. Whether by sea or air, our logistics team ensures the "blood-red" cherry freshness is preserved until it reaches your port.</p>
+        </div>
+        <div class="image-box reveal">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee beans">
         </div>
     </section>
 
-    <section class="catalog reveal">
-        <div class="card-container">
-            <div class="glass-card">
-                <span class="tag">Rare Arabica</span>
-                <h3>Highland Geisha</h3>
-                <p>Floral notes with a tea-like body. The crown jewel of our export line.</p>
-            </div>
-            <div class="glass-card">
-                <span class="tag">Bold Robusta</span>
-                <h3>Black Diamond</h3>
-                <p>Intense crema and chocolate undertones for premium espresso blending.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="footer-content">
-            <h2>Let’s Brew a Partnership</h2>
-            <p>Global headquarters in Jakarta | Logistics Hub in Rotterdam</p>
-            <form class="complex-form">
-                <div class="form-row">
-                    <input type="text" placeholder="Company Name">
-                    <input type="email" placeholder="Business Email">
-                </div>
-                <select>
-                    <option>Select Export Volume</option>
-                    <option>Under 10 Tons</option>
-                    <option>10 - 50 Tons</option>
-                    <option>50+ Tons</option>
-                </select>
-                <button class="btn-gold">Request Sample Kit</button>
+    <footer id="contact" class="footer">
+        <div class="footer-inner reveal">
+            <h2>Start a Partnership</h2>
+            <p>Inquire about wholesale volumes and seasonal micro-lots.</p>
+            <form class="adaptive-form">
+                <input type="text" placeholder="Company Name" required>
+                <input type="email" placeholder="Business Email" required>
+                <button type="submit">Request Sample Kit</button>
             </form>
+            <p class="copyright">&copy; 2026 Ancestral Beans Export Co.</p>
         </div>
     </footer>
 
