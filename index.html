@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
 
@@ -188,21 +189,20 @@
             <div>
                 <span class="sub-title" data-en="Our Footprint" data-id="Jejak Langkah Kami">Our Footprint</span>
                 <h2 data-en="Presence Across Indonesia" data-id="Kehadiran di Seluruh Indonesia">Presence Across Indonesia</h2>
-                <p data-en="Strategically positioned to source the best. Based in Jakarta, with representatives in key agricultural hubs ensuring direct access to premium harvest."
-                   data-id="Diposisikan secara strategis untuk mendapatkan hasil terbaik. Berbasis di Jakarta, dengan perwakilan di pusat-pusat pertanian utama yang memastikan akses langsung ke hasil panen premium.">
-                   Strategically positioned to source the best. Based in Jakarta, with representatives in key agricultural hubs ensuring direct access to premium harvest.
+                <p data-en="Strategically positioned to source the best. Based in Balikpapan, with offices and representatives in key agricultural hubs ensuring direct access to premium harvest."
+                data-id="Diposisikan secara strategis untuk mendapatkan hasil terbaik. Berbasis di Balikpapan, dengan kantor dan perwakilan di pusat-pusat pertanian utama yang memastikan akses langsung ke hasil panen premium.">
+                Strategically positioned to source the best. Based in Balikpapan, with offices and representatives in key agricultural hubs ensuring direct access to premium harvest.
                 </p>
                 
                 <ul class="hubs-list">
-                    <li><strong>Jakarta:</strong> <span data-en="Headquarters & Main Export Hub" data-id="Kantor Pusat & Pusat Ekspor Utama">Headquarters & Main Export Hub</span></li>
-                    <li><strong>Aceh:</strong> <span data-en="Gayo Representative" data-id="Perwakilan Gayo">Gayo Representative</span></li>
-                    <li><strong>West Java:</strong> <span data-en="Kuningan Representative" data-id="Perwakilan Kuningan">Kuningan Representative</span></li>
-                    <li><strong>Central Java:</strong> <span data-en="Banjarnegara Representative" data-id="Perwakilan Banjarnegara">Banjarnegara Representative</span></li>
-                    <li><strong>East Java:</strong> <span data-en="Jember Representative" data-id="Perwakilan Jember">Jember Representative</span></li>
+                    <li><strong>Balikpapan:</strong> <span data-en="Headquarters" data-id="Kantor Pusat">Headquarters</span></li>
+                    <li><strong>Surabaya:</strong> <span data-en="Branch Office" data-id="Kantor Cabang">Branch Office</span></li>
+                    <li><strong>Jember Raung:</strong> <span data-en="Representative Office" data-id="Kantor Perwakilan">Representative Office</span></li>
+                    <li><strong>Bondowoso Ijen:</strong> <span data-en="Representative Office" data-id="Kantor Perwakilan">Representative Office</span></li>
                 </ul>
             </div>
             <div class="map-placeholder">
-                <div class="map-graphic">[Map of Indonesia Hubs Diagram]</div>
+                <div id="fjmMap"></div>
             </div>
         </div>
     </section>
@@ -289,7 +289,57 @@
             <p>&copy; 2026 PT. Ferardio Jaya Makmur. All rights reserved.</p>
         </div>
     </footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var map = L.map('fjmMap', {
+        scrollWheelZoom: false,
+        zoomSnap: 0.25,
+        minZoom: 3
+    });
+    map.attributionControl.setPrefix(false);
 
+    // Esri dark gray base map (no labels, no API key). Green style is applied with CSS
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 12,
+        attribution: 'Tiles &copy; Esri'
+    }).addTo(map);
+
+    // Fit the view to Indonesia
+    var indonesiaBounds = L.latLngBounds([-11.5, 94.5], [6.5, 141.5]);
+    map.fitBounds(indonesiaBounds);
+    map.setMaxBounds(indonesiaBounds.pad(0.5));
+
+    var offices = [
+        { name: 'Balikpapan', type: 'Headquarters',          pos: [-1.2379, 116.8529], hq: true, dir: 'right',  off: [10, 0] },
+        { name: 'Surabaya',   type: 'Branch Office',         pos: [-7.2575, 112.7521],            dir: 'left',   off: [-7, 0] },
+        { name: 'Jember',     type: 'Representative Office', pos: [-8.1845, 113.6680],            dir: 'bottom', off: [0, 7] },
+        { name: 'Bondowoso',  type: 'Representative Office', pos: [-7.9135, 113.8215],            dir: 'right',  off: [8, -2] }
+    ];
+
+    offices.forEach(function (o) {
+        var marker = L.circleMarker(o.pos, {
+            radius: o.hq ? 8 : 5,
+            color: '#000000',
+            weight: 2,
+            fillColor: o.hq ? '#e0b84c' : '#ffffff',
+            fillOpacity: 1
+        }).addTo(map);
+
+        // Name always visible next to the dot
+        marker.bindTooltip(o.name, {
+            permanent: true,
+            direction: o.dir,
+            offset: o.off,
+            className: 'map-label' + (o.hq ? ' map-label-hq' : '')
+        });
+        marker.bindPopup('<strong>' + o.name + '</strong><br>' + o.type);
+    });
+
+    setTimeout(function () { map.invalidateSize(); map.fitBounds(indonesiaBounds); }, 400);
+    window.addEventListener('resize', function () { map.fitBounds(indonesiaBounds); });
+});
+</script>
     <script src="app.js"></script>
 </body>
 </html>
