@@ -74,3 +74,4 @@ const structuralObserver = new IntersectionObserver((entries) => {
 
 // Mount node queries into active lifecycle watchers
 document.querySelectorAll('.reveal').forEach(el => structuralObserver.observe(el));
+
