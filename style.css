@@ -511,3 +511,8 @@ input:focus, select:focus, textarea:focus {
 }
 .leaflet-tooltip.map-label-hq { font-size: 14px; color: #fbc900; }
 .leaflet-tooltip.map-label::before { display: none; }
+
+.send-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.send-buttons .btn-submit { flex: 1; min-width: 180px; cursor: pointer; }
+.btn-wa { background: #25d366; border-color: #25d366; color: #fff; }
+.btn-wa:hover { background: #1ebe5a; }
