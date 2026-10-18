@@ -513,6 +513,6 @@ input:focus, select:focus, textarea:focus {
 .leaflet-tooltip.map-label::before { display: none; }
 
 .send-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-.send-buttons .btn-submit { flex: 1; min-width: 180px; cursor: pointer; }
-.btn-wa { background: #25d366; border-color: #25d366; color: #fff; }
-.btn-wa:hover { background: #1ebe5a; }
+.send-buttons .btn-submit { flex: 1; width: auto; min-width: 180px; margin-top: 0; }
+.send-buttons .btn-wa { background: #25d366; }
+.send-buttons .btn-wa:hover { background: #1ebe5a; }
