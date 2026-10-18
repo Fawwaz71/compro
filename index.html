@@ -13,6 +13,7 @@
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="icon" type="image/jpeg" href="/FJM.jpeg">
 </head>
 <body>
 
@@ -226,58 +227,45 @@
             </div>
             
             <div class="form-wrapper">
-                <h3 data-en="Request a Quotation" data-id="Permintaan Penawaran Harga">Request a Quotation</h3>
-                <form class="quotation-form" onsubmit="event.preventDefault();">
+                <h3 data-en="Any Question" data-id="Pertanyaan">Any Question</h3>
+
+                <form class="quotation-form" id="inquiryForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label data-en="First Name" data-id="Nama Depan">First Name</label>
-                            <input type="text" required>
+                            <input type="text" name="first_name" required>
                         </div>
                         <div class="form-group">
                             <label data-en="Last Name" data-id="Nama Belakang">Last Name</label>
-                            <input type="text" required>
+                            <input type="text" name="last_name" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label data-en="Email Address" data-id="Alamat Email">Email Address</label>
-                        <input type="email" required>
+                        <label data-en="Your Email or Phone" data-id="Email atau Telepon Anda">Your Email or Phone</label>
+                        <input type="text" name="contact" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label data-en="Product Interest" data-id="Minat Produk">Product Interest</label>
-                        <select>
-                            <option>Gayo Aceh</option>
-                            <option>Robusta Temanggung</option>
-                            <option>Robusta Ijen</option>
-                            <option>Robusta Ijen Raung</option>
-                            <option>Robusta Bondowoso</option>
-                            <option>Robusta Sidomulyo</option>
+                        <label data-en="Topic" data-id="Topik">Topic</label>
+                        <select name="topic">
+                            <option>Product Information</option>
+                            <option>Price</option>
+                            <option>Shipping</option>
+                            <option>Partnership</option>
+                            <option>Other</option>
                         </select>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label data-en="Quantity (MT/Kg)" data-id="Jumlah (MT/Kg)">Quantity (MT/Kg)</label>
-                            <input type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Incoterms</label>
-                            <select>
-                                <option>FOB (Free On Board)</option>
-                                <option>CIF (Cost, Insurance, Freight)</option>
-                                <option>CNF (Cost and Freight)</option>
-                                <option>ExWork</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label data-en="Your Message" data-id="Pesan Anda">Your Message</label>
+                        <textarea name="message" rows="5" required></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label data-en="Message / Special Requests" data-id="Pesan / Permintaan Khusus">Message / Special Requests</label>
-                        <textarea rows="4"></textarea>
+                    <div class="send-buttons">
+                        <button type="button" id="sendWA" class="btn-submit btn-wa" data-en="Send via WhatsApp" data-id="Kirim via WhatsApp">Send via WhatsApp</button>
+                        <button type="button" id="sendEmail" class="btn-submit btn-mail" data-en="Send via Email" data-id="Kirim via Email">Send via Email</button>
                     </div>
-                    
-                    <button type="submit" class="btn-submit" data-en="Send Inquiry" data-id="Kirim Permintaan">Send Inquiry</button>
                 </form>
             </div>
         </div>
@@ -339,6 +327,40 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () { map.invalidateSize(); map.fitBounds(indonesiaBounds); }, 400);
     window.addEventListener('resize', function () { map.fitBounds(indonesiaBounds); });
 });
+</script>
+<script>
+(function () {
+    var WA_NUMBER = '628115448350';                    // WhatsApp number (country code, no + or spaces)
+    var EMAIL     = 'ptferardiojayamulia@gmail.com';   // where emails go
+
+    var form = document.getElementById('inquiryForm');
+
+    function buildMessage() {
+        var d = new FormData(form);
+        return {
+            subject: d.get('topic') + ' - ' + d.get('first_name') + ' ' + d.get('last_name'),
+            body:
+                'Name: ' + d.get('first_name') + ' ' + d.get('last_name') + '\n' +
+                'Contact: ' + d.get('contact') + '\n' +
+                'Topic: ' + d.get('topic') + '\n\n' +
+                d.get('message')
+        };
+    }
+
+    document.getElementById('sendWA').addEventListener('click', function () {
+        if (!form.reportValidity()) return;
+        var m = buildMessage();
+        window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(m.subject + '\n\n' + m.body), '_blank');
+    });
+
+    document.getElementById('sendEmail').addEventListener('click', function () {
+        if (!form.reportValidity()) return;
+        var m = buildMessage();
+        window.location.href = 'mailto:' + EMAIL +
+            '?subject=' + encodeURIComponent(m.subject) +
+            '&body=' + encodeURIComponent(m.body);
+    });
+})();
 </script>
     <script src="app.js"></script>
 </body>
